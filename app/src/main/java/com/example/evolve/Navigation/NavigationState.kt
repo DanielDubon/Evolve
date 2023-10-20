@@ -1,9 +1,9 @@
 package com.example.evolve.Navigation
 
 sealed class NavigationState(val route: String) {
-    object Home: NavigationState("Home")
-    object Category: NavigationState("Category/{categoryId}")
-    object Events: NavigationState("Event")
+    object Home: NavigationState("Login")
+    object Login: NavigationState("Login")
+    object Register: NavigationState("Register")
     object Detail: NavigationState("Detail")
     object Profile: NavigationState("Profile")
     object Settings: NavigationState("Settings")

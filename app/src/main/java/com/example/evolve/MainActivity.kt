@@ -32,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.evolve.Navigation.Navigation
 import com.example.evolve.ui.theme.EvolveTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WelcomeScreen("user")
+                    Navigation()
                 }
             }
         }

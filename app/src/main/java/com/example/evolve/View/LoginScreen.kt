@@ -22,10 +22,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-@Preview
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navcontroller: NavController ){
 
     val username = remember { mutableStateOf(TextFieldValue()) }
     val password = remember { mutableStateOf(TextFieldValue()) }
@@ -61,9 +61,10 @@ Row {
         Text("Ingresar")
     }
     Button(onClick = {
-
+        navcontroller.navigate("Register")
     }) {
         Text("Registrarse")
+
     }
 }
 

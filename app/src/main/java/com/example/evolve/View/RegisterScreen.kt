@@ -25,11 +25,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
-@Preview
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(){
+fun RegisterScreen(navController: NavController){
 
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -118,7 +119,9 @@ fun RegisterScreen(){
                 }) {
                 Text("Registrarse")
             }
-            Button(onClick = { }) {
+            Button(onClick = {
+                navController.navigate("Login")
+            }) {
                 Text("¿Ya tienes cuenta?")
             }
         }

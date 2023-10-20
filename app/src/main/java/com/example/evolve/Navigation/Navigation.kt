@@ -9,6 +9,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.evolve.View.LoginScreen
+import com.example.evolve.View.RegisterScreen
 
 
 @Composable
@@ -18,19 +20,20 @@ fun Navigation(modifier: Modifier = Modifier) {
         startDestination = NavigationState.Home.route,
         modifier = modifier) {
         composable(route = NavigationState.Home.route) {
-            //MealsCategoriesScreen(navController = navController)
+            LoginScreen(navcontroller = navController)
 
         }
 
-        composable(route = NavigationState.Category.route) {
-                backStackEntry ->
-            val categoryId = backStackEntry.arguments?.getString("categoryId")
-            if (categoryId != null) {
-
-              //  MealsInCategoryScreen(categoryId, navController)
-            }
+        composable(route = NavigationState.Login.route) {
+            LoginScreen(navcontroller = navController)
 
         }
+
+
+        composable(route = NavigationState.Register.route) {
+            RegisterScreen(navController = navController)
+        }
+        
         composable(route = "${NavigationState.Detail.route}/{mealId}") { backStackEntry ->
             val mealId = backStackEntry.arguments?.getString("mealId")
             if (mealId != null) {
