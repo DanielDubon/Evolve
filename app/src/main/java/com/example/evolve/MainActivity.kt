@@ -32,23 +32,35 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
+import com.example.evolve.Model.PersonApp
 import com.example.evolve.Navigation.Navigation
 import com.example.evolve.ui.theme.EvolveTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
+            val app = this.application as PersonApp
             EvolveTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navigation()
+
+                    Navigation(app)
                 }
             }
         }
+
+
+
+
     }
 }
 

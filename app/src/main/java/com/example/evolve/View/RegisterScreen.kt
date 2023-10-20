@@ -1,5 +1,6 @@
 package com.example.evolve.View
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,11 +28,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.evolve.Model.Person
+import com.example.evolve.Model.PersonApp
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(navController: NavController){
+fun RegisterScreen(app: PersonApp, navcontroller: NavController){
 
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -101,12 +106,29 @@ fun RegisterScreen(navController: NavController){
 
         Row {
 
-
+            val coroutineScope = rememberCoroutineScope()
             Button(
 
                 onClick = {
                     if (password.value.text == password2.value.text) {
-                        //navegar a pantalla principal
+                        val nombre = username.value.text
+                        val edad = age.value.text.toInt()
+                        val peso = weight.value.text.toInt()
+                        val altura = height.value.text.toInt()
+                        val contraseña = password.value.text
+
+
+                        coroutineScope.launch {
+                            val person = Person(id = 1, name = nombre, Height = altura, age = edad, weight = peso, password = contraseña)
+                            app.room.personDao().insertUser(listOf(person))
+
+                            val people = app.room.personDao().getAll()
+                            Log.d("BASEDEDATOSXXX", "HAY: ${people.size} UWU")
+
+                            // Use withContext(Dispatchers.Main) if you need to switch to the main thread
+                            // for any UI operation. In this case, you're navigating, which should be done on the main thread
+                            navcontroller.navigate("Login")
+                        }
                     } else {
                         Toast.makeText(
                             context,
@@ -120,7 +142,7 @@ fun RegisterScreen(navController: NavController){
                 Text("Registrarse")
             }
             Button(onClick = {
-                navController.navigate("Login")
+                navcontroller.navigate("Login")
             }) {
                 Text("¿Ya tienes cuenta?")
             }

@@ -22,10 +22,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.evolve.Model.PersonApp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navcontroller: NavController ){
+fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
+
+
 
     val username = remember { mutableStateOf(TextFieldValue()) }
     val password = remember { mutableStateOf(TextFieldValue()) }
