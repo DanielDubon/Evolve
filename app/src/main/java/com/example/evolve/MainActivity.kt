@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import com.example.evolve.Model.PersonApp
 import com.example.evolve.Navigation.Navigation
 import com.example.evolve.ui.theme.EvolveTheme
@@ -66,7 +67,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WelcomeScreen(userName: String) {
+fun WelcomeScreen(navController: NavController,userName: String) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),

@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.example.evolve.Model.Person
 import com.example.evolve.Model.PersonApp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -118,16 +119,17 @@ fun RegisterScreen(app: PersonApp, navcontroller: NavController){
                         val contraseña = password.value.text
 
 
-                        coroutineScope.launch {
+                        coroutineScope.launch(Dispatchers.IO) {  // Use Dispatchers.IO for database operations
                             val person = Person(id = 1, name = nombre, Height = altura, age = edad, weight = peso, password = contraseña)
                             app.room.personDao().insertUser(listOf(person))
 
                             val people = app.room.personDao().getAll()
                             Log.d("BASEDEDATOSXXX", "HAY: ${people.size} UWU")
 
-                            // Use withContext(Dispatchers.Main) if you need to switch to the main thread
-                            // for any UI operation. In this case, you're navigating, which should be done on the main thread
-                            navcontroller.navigate("Login")
+                            // Switch back to the main thread to interact with the UI
+                            launch(Dispatchers.Main) {
+                                navcontroller.navigate("Login")
+                            }
                         }
                     } else {
                         Toast.makeText(

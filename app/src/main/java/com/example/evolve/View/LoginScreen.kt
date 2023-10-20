@@ -1,5 +1,6 @@
 package com.example.evolve.View
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,20 +16,24 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.evolve.Model.PersonApp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
 
-
+    val context = LocalContext.current
 
     val username = remember { mutableStateOf(TextFieldValue()) }
     val password = remember { mutableStateOf(TextFieldValue()) }
@@ -58,7 +63,37 @@ fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
         Spacer(modifier = Modifier.height(10.dp))
 
 Row {
+    val coroutineScope2 = rememberCoroutineScope()
     Button(onClick = {
+
+        coroutineScope2.launch(Dispatchers.IO) {  // Use Dispatchers.IO for database operations
+            if (app.room.personDao().searchUser(username.value.text, password.value.text)){
+                launch(Dispatchers.Main) {
+                    navcontroller.navigate("Home/${username.value.text}")
+                }
+
+            }else{
+                launch(Dispatchers.Main) {
+
+                    Toast.makeText(
+                        context,
+                        "Contraseña o usuario incorrecto",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                }
+            }
+
+
+
+
+
+
+
+        }
+
+
+
 
     }) {
         Text("Ingresar")

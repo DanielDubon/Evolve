@@ -15,6 +15,7 @@ import com.example.evolve.Model.PeopleDb
 import com.example.evolve.Model.PersonApp
 import com.example.evolve.View.LoginScreen
 import com.example.evolve.View.RegisterScreen
+import com.example.evolve.WelcomeScreen
 
 
 @Composable
@@ -25,10 +26,14 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
     NavHost(navController = navController,
-        startDestination = NavigationState.Home.route,
+        startDestination = NavigationState.Login.route,
         modifier = modifier) {
         composable(route = NavigationState.Home.route) {
-            LoginScreen(app ,navcontroller = navController)
+                backStackEntry ->
+            val Name = backStackEntry.arguments?.getString("username")
+            if (Name != null) {
+                WelcomeScreen(navController = navController,userName = Name)
+            }
 
         }
 
