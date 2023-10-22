@@ -20,7 +20,6 @@
             android:theme="@style/Theme.Evolve">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-.0
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

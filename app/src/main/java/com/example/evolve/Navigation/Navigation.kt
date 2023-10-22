@@ -41,7 +41,6 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
 
         }
 
-
         composable(route = NavigationState.Register.route) {
             RegisterScreen(app ,navcontroller = navController)
         }

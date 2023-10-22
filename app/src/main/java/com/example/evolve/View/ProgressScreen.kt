@@ -28,7 +28,7 @@ import com.example.evolve.Navigation.NavigationState
 @Composable
 fun ProgressScreen(
     navController: NavController,
-    username: String,
+    userName: String,
     userWeight: Int,
     userHeight: Int
 ) {
@@ -41,7 +41,7 @@ fun ProgressScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Hola, $username",
+            text = "Hola, $userName",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()
@@ -111,14 +111,5 @@ fun getMotivationMessage(bmiCategory: String): String {
         else -> "¡Sigue trabajando en tu salud y bienestar!"
     }
 }
-@Preview
-@Composable
-fun ProgressScreenPreview() {
-    val username = "user"
-    val userWeight = 70
-    val userHeight = 170
-    val navController = rememberNavController()
 
-    ProgressScreen(navController, username, userWeight, userHeight)
-}
 

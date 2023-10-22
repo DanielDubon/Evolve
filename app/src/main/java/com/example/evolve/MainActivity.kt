@@ -130,7 +130,7 @@ fun WelcomeScreen(navController: NavController, userName: String) {
             label = { Text("Progress") },
             selected = selectedTab == 1,
             onClick = { selectedTab = 1
-                // Realiza la navegación a la pantalla de progreso
+                //navegación a la pantalla de progreso
                 navController.navigate("Progress")}
         )
         BottomNavigationItem(
