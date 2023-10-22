@@ -177,7 +177,7 @@ fun CarouselSlider(images: List<String>, modifier: Modifier = Modifier) {
     LaunchedEffect(key1 = true, block = {
         coroutineScope.launch {
             while (true) {
-                delay(1000) // Cambia de imagen cada 2 segundos
+                delay(3000) // Cambia de imagen cada 2 segundos
                 if (index == images.size - 1) index = 0
                 else index++
                 scrollState.animateScrollToItem(index)
@@ -196,14 +196,14 @@ fun CarouselSlider(images: List<String>, modifier: Modifier = Modifier) {
             ) {
                 itemsIndexed(images) { index, image ->
                     Card(
-                        modifier = Modifier.height(200.dp),
+                        modifier = Modifier.height(200.dp).width(375.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
                     ) {
                         AsyncImage(
                             model = image,
                             contentDescription = "Image",
                             contentScale = ContentScale.FillBounds,
-                            modifier = Modifier.width(300.dp)
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
                 }
