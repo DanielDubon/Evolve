@@ -126,7 +126,7 @@ Row {
         coroutineScope2.launch(Dispatchers.IO) {  // Use Dispatchers.IO for database operations
             if (app.room.personDao().searchUser(username.value.text, password.value.text)){
                 launch(Dispatchers.Main) {
-                    navcontroller.navigate("Home/${username.value.text}")
+                    navcontroller.navigate("Home")
 
 
                 }

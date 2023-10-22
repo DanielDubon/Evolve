@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.evolve.Model.PersonApp
+import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.Navigation
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.ui.theme.EvolveTheme
@@ -74,7 +75,8 @@ class DarkModeActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WelcomeScreen(navController: NavController, username: String) {
+fun WelcomeScreen(navController: NavController) {
+    val username = UserSession.username ?: "DefaultUsername"
     val logoColor = colorResource(id = R.color.LogoColor)
     var selectedTab by remember { mutableStateOf(0) }
     Column(

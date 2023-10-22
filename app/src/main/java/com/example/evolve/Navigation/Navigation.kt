@@ -26,11 +26,11 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
         startDestination = NavigationState.Login.route,
         modifier = modifier) {
         composable(route = NavigationState.Home.route) {
-                backStackEntry ->
-            val Name = backStackEntry.arguments?.getString("username")
-            if (Name != null) {
-                WelcomeScreen(navController = navController,username = Name)
-            }
+
+
+
+                WelcomeScreen(navController = navController)
+
 
         }
 
