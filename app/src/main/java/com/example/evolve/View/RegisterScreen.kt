@@ -170,7 +170,6 @@ fun RegisterScreen(app: PersonApp, navcontroller: NavController){
 
                                 coroutineScope.launch(Dispatchers.IO) {  // Use Dispatchers.IO for database operations
                                     val person = Person(
-                                        id = 1,
                                         name = nombre,
                                         Height = altura,
                                         age = edad,

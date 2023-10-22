@@ -9,11 +9,7 @@ class PersonApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        try {
-            applicationContext.deleteDatabase("person")
-        }catch (e: Exception){
 
-        }
 
         room = Room.databaseBuilder(this, PeopleDb::class.java, "person").build()
     }

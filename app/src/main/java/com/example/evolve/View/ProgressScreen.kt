@@ -22,17 +22,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.evolve.Model.PersonApp
+import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProgressScreen(
     navController: NavController,
-    username: String,
-    userWeight: Int,
-    userHeight: Int
+
 ) {
-    val bmi = calculateBMI(userWeight, userHeight / 100.0) // Convertir altura a metros
+
+    val username = UserSession.username ?: "DefaultUsername"
+    val peso = UserSession.weight ?: 0
+    val altura = UserSession.height ?: 0
+
+    val bmi = calculateBMI(peso, altura / 100.0) // Convertir altura a metros
     val bmiCategory = getBMICategory(bmi)
     val motivationMessage = getMotivationMessage(bmiCategory)
 

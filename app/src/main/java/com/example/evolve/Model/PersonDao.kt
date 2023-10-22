@@ -16,4 +16,8 @@ interface PersonDao {
     @Insert
      fun insertUser(people: List<Person>)
 
+    @Query("SELECT * FROM Person WHERE name=:name AND password=:password")
+    fun getUser(name: String, password: String): Person
+
+
 }

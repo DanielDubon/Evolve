@@ -54,6 +54,7 @@ class DarkModeActivity : ComponentActivity() {
 
         setContent {
             val app = this.application as PersonApp
+
             EvolveTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(

@@ -40,7 +40,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.evolve.Model.Person
 import com.example.evolve.Model.PersonApp
+import com.example.evolve.Model.UserSession
 import com.example.evolve.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +50,9 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
+
+
+
 
     val context = LocalContext.current
 
@@ -122,7 +127,11 @@ Row {
             if (app.room.personDao().searchUser(username.value.text, password.value.text)){
                 launch(Dispatchers.Main) {
                     navcontroller.navigate("Home/${username.value.text}")
+
+
                 }
+                val loggedInUser = app.room.personDao().getUser(username.value.text,password.value.text)
+                UserSession.setUserDetails(loggedInUser)
 
             }else{
                 launch(Dispatchers.Main) {

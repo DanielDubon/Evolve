@@ -21,9 +21,7 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
     // Variables para almacenar los valores compartidos
-    val username = remember { mutableStateOf("") }
-    val userWeight = remember { mutableStateOf(0) }
-    val userHeight = remember { mutableStateOf(0) }
+
     NavHost(navController = navController,
         startDestination = NavigationState.Login.route,
         modifier = modifier) {
@@ -46,7 +44,7 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
         }
 
         composable(route = NavigationState.Progress.route) {
-            ProgressScreen(navController, username.value, userWeight.value, userHeight.value)
+            ProgressScreen(navController)
         }
 
         }
