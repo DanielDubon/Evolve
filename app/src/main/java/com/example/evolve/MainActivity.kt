@@ -71,7 +71,7 @@ class DarkModeActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun WelcomeScreen(navController: NavController, userName: String) {
+fun WelcomeScreen(navController: NavController, username: String) {
     var selectedTab by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -93,7 +93,7 @@ fun WelcomeScreen(navController: NavController, userName: String) {
             )
         }
         Text(
-            text = "Bienvenid@, $userName",
+            text = "Bienvenid@, $username",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()

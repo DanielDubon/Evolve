@@ -28,7 +28,7 @@ import com.example.evolve.Navigation.NavigationState
 @Composable
 fun ProgressScreen(
     navController: NavController,
-    userName: String,
+    username: String,
     userWeight: Int,
     userHeight: Int
 ) {
@@ -41,7 +41,7 @@ fun ProgressScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Hola, $userName",
+            text = "Hola, $username",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()

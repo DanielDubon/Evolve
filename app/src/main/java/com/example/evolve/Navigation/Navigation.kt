@@ -31,7 +31,7 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
                 backStackEntry ->
             val Name = backStackEntry.arguments?.getString("username")
             if (Name != null) {
-                WelcomeScreen(navController = navController,userName = Name)
+                WelcomeScreen(navController = navController,username = Name)
             }
 
         }
