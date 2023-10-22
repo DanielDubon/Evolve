@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.evolve"
-        minSdk = 34
+        minSdk = 33
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -37,7 +37,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
-       // jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
