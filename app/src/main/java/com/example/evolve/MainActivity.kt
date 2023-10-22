@@ -127,7 +127,7 @@ fun WelcomeScreen(navController: NavController) {
                 .padding(16.dp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp)) // Espacio entre el mensaje de bienvenida y el carrusel
+        Spacer(modifier = Modifier.height(16.dp))
 
         CarouselSlider(images, modifier = Modifier.weight(1f))
 
