@@ -5,15 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -25,12 +29,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.evolve.Model.PersonApp
@@ -40,10 +46,7 @@ import com.example.evolve.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProgressScreen(
-    navController: NavController
-
-) {
+fun ProgressScreen(navController: NavController) {
     val logoColor = colorResource(id = R.color.LogoColor)
     val username = UserSession.username ?: "DefaultUsername"
     val peso = UserSession.weight ?: 0
@@ -53,37 +56,61 @@ fun ProgressScreen(
     val bmiCategory = getBMICategory(bmi)
     val motivationMessage = getMotivationMessage(bmiCategory)
 
+    val bmiIdeal = 22.0 // IMC "ideal"
+
+    val progress = (bmi / bmiIdeal).coerceIn(0.0, 1.0)
+
     var selectedTab by remember { mutableStateOf(1) as MutableState<Int> } // Seleccionar la pestaña "Progress" por defecto
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(logoColor)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Hola, $username",
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
         Text(
-            text = "Hola, $username",
+            text = "Tu Progreso",
             fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
+            color = logoColor,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 8.dp)
+        )
+
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-        )
-        Text(
-            text = "Tu IMC: $bmi",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Text(
-            text = "Categoría de IMC: $bmiCategory",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Text(
-            text = motivationMessage,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-        Spacer(modifier = Modifier.weight(1f)) // Rellena el espacio entre el contenido y el BottomNavigation
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                ListItem("Tu IMC:", "$bmi")
+                ListItem("Categoría de IMC:", bmiCategory)
+                ListItem(" ", motivationMessage)
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Barra de progreso
+                ProgressBar(progress)
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
         BottomNavigation(
             modifier = Modifier
                 .fillMaxWidth()
@@ -135,6 +162,46 @@ fun ProgressScreen(
         }
     }
 }
+
+@Composable
+fun ProgressBar(progress: Double) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+    ) {
+        LinearProgressIndicator(
+            progress = progress.toFloat(),
+            modifier = Modifier.fillMaxWidth()
+        )
+        Text(
+            text = "Progreso: ${(progress * 100).toInt()}%",
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
+
+
+
+@Composable
+fun ListItem(title: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = value)
+    }
+}
+
 
 
 
