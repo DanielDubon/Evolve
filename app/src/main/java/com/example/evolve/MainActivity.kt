@@ -47,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -71,6 +72,7 @@ class DarkModeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             val app = this.application as PersonApp
 
             EvolveTheme {
@@ -90,6 +92,9 @@ class DarkModeActivity : ComponentActivity() {
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
+
+    val context = LocalContext.current
+
     val username = UserSession.username ?: "DefaultUsername"
     val logoColor = colorResource(id = R.color.LogoColor)
     var selectedTab by remember { mutableStateOf(0) }
@@ -162,7 +167,11 @@ fun WelcomeScreen(navController: NavController) {
                 icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
                 label = { Text("Settings") },
                 selected = selectedTab == 2,
-                onClick = { selectedTab = 2 }
+                onClick = { selectedTab = 2
+
+                    UserSession.logout(context)
+                    UserSession.clearSession()
+                }
             )
         }
     }
@@ -211,3 +220,5 @@ fun CarouselSlider(images: List<String>, modifier: Modifier = Modifier) {
         }
     }
 }
+
+

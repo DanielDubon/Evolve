@@ -1,5 +1,7 @@
 package com.example.evolve.View
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -47,11 +50,10 @@ import com.example.evolve.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
-
-
 
 
     val context = LocalContext.current
@@ -60,6 +62,32 @@ fun LoginScreen(app: PersonApp,navcontroller: NavController ) {
     val password = remember { mutableStateOf(TextFieldValue()) }
 
     val logoColor = colorResource(id = R.color.LogoColor)
+
+    val coroutineScope3 = rememberCoroutineScope()
+    LaunchedEffect(Unit) {
+    if (UserSession.isLoggedIn(context)) {
+        val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("username", "A")
+        val password = sharedPreferences.getString("password", "A")
+        coroutineScope3.launch(Dispatchers.IO) {
+            if (password != null && username != null) {
+                val loggedInUser = app.room.personDao().getUser(username, password)
+                UserSession.setUserDetails(loggedInUser)
+            }
+        }
+
+        navcontroller.navigate("Home")
+
+    } else {
+
+        Toast.makeText(
+            context,
+            "Inicia sesion o registrate",
+            Toast.LENGTH_SHORT
+        ).show()
+
+    }
+}
 
     val brush = Brush.linearGradient(
         colors = listOf(
@@ -130,8 +158,15 @@ Row {
 
 
                 }
+                val sharedPreferences = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
                 val loggedInUser = app.room.personDao().getUser(username.value.text,password.value.text)
                 UserSession.setUserDetails(loggedInUser)
+                UserSession.saveLoginState(context)
+                editor.putString("username", loggedInUser.name)
+                editor.putString("password", loggedInUser.password)
+                editor.apply()
+
 
             }else{
                 launch(Dispatchers.Main) {
