@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.evolve.Model.PersonApp
 import com.example.evolve.Navigation.Navigation
+import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.ui.theme.EvolveTheme
 import kotlinx.coroutines.launch
 
@@ -73,16 +75,17 @@ class DarkModeActivity : ComponentActivity() {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WelcomeScreen(navController: NavController, username: String) {
+    val logoColor = colorResource(id = R.color.LogoColor)
     var selectedTab by remember { mutableStateOf(0) }
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(0.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF000000))
-                .padding(16.dp)
+                .padding(20.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.evolve),
@@ -100,12 +103,11 @@ fun WelcomeScreen(navController: NavController, username: String) {
                 .fillMaxWidth()
                 .padding(16.dp)
         )
-        Spacer(modifier = Modifier.height(215.dp))
+        Spacer(modifier = Modifier.weight(1f))
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFF000000))
-                .padding(16.dp)
+                .padding(0.dp, 24.dp, 0.dp, 0.dp),
         ) {
             Button(
                 onClick = { /*...*/ },
@@ -115,34 +117,42 @@ fun WelcomeScreen(navController: NavController, username: String) {
                 Text("Empezemos!", color = Color.White)
             }
         }
-    }
-    BottomNavigation(
-        modifier = Modifier.fillMaxWidth(),
-        backgroundColor = Color(0xFF473ACC) // Cambia el color de fondo del BottomNavigation
-    ) {
-        BottomNavigationItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-            label = { Text("Home") },
-            selected = selectedTab == 0,
-            onClick = { selectedTab = 0 }
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Default.Favorite, contentDescription = "Progress") },
-            label = { Text("Progress") },
-            selected = selectedTab == 1,
-            onClick = { selectedTab = 1
-                //navegación a la pantalla de progreso
-                navController.navigate("Progress")}
-        )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
-            label = { Text("Settings") },
-            selected = selectedTab == 2,
-            onClick = { selectedTab = 2 }
-        )
+        BottomNavigation(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(logoColor)
+                .padding(0.dp, 24.dp, 0.dp, 0.dp),
+            backgroundColor = Color(0xFF5744e6)
+        ) {
+            BottomNavigationItem(
+                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                label = { Text("Home") },
+                selected = selectedTab == 0,
+                onClick = {
+                    selectedTab = 0
+                    // Navegar de regreso a la pantalla principal (Home)
+                    navController.navigate(NavigationState.Home.route)
+                }
+            )
+            BottomNavigationItem(
+                icon = { Icon(Icons.Default.Favorite, contentDescription = "Progress") },
+                label = { Text("Progress") },
+                selected = selectedTab == 1,
+                onClick = {
+                    selectedTab = 1
+                    // Navegación a la pantalla de progreso
+                    navController.navigate("Progress")
+                }
+            )
+            BottomNavigationItem(
+                icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
+                label = { Text("Settings") },
+                selected = selectedTab == 2,
+                onClick = { selectedTab = 2 }
+            )
+        }
     }
 }
-
 
 
 
