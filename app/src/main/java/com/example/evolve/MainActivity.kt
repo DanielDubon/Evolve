@@ -25,7 +25,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -66,9 +65,6 @@ class DarkModeActivity : ComponentActivity() {
                 }
             }
         }
-
-
-
 
     }
 }
@@ -133,7 +129,9 @@ fun WelcomeScreen(navController: NavController, userName: String) {
             icon = { Icon(Icons.Default.Favorite, contentDescription = "Progress") },
             label = { Text("Progress") },
             selected = selectedTab == 1,
-            onClick = { selectedTab = 1 }
+            onClick = { selectedTab = 1
+                // Realiza la navegación a la pantalla de progreso
+                navController.navigate("Progress")}
         )
         BottomNavigationItem(
             icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
