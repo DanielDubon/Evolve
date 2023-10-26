@@ -13,6 +13,7 @@ import com.example.evolve.Model.PersonApp
 import com.example.evolve.View.LoginScreen
 import com.example.evolve.View.ProgressScreen
 import com.example.evolve.View.RegisterScreen
+import com.example.evolve.View.SettingsScreen
 import com.example.evolve.WelcomeScreen
 
 
@@ -27,10 +28,7 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
         modifier = modifier) {
         composable(route = NavigationState.Home.route) {
 
-
-
                 WelcomeScreen(navController = navController)
-
 
         }
 
@@ -46,8 +44,12 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
         composable(route = NavigationState.Progress.route) {
             ProgressScreen(navController)
         }
+        composable(route = NavigationState.Settings.route) {
+            SettingsScreen(navController)
 
         }
 }
+     }
+
 
 

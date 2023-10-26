@@ -56,8 +56,11 @@ fun ProgressScreen(navController: NavController) {
     val bmiCategory = getBMICategory(bmi)
     val motivationMessage = getMotivationMessage(bmiCategory)
 
+    val bmiIdeal = 22.0 // Define el IMC ideal
 
-    var selectedTab by remember { mutableStateOf(1) as MutableState<Int> }
+    val progress = (bmi / bmiIdeal).coerceIn(0.0, 1.0) // Calcula el progreso (limitado entre 0 y 1)
+
+    var selectedTab by remember { mutableStateOf(1) as MutableState<Int> } // Seleccionar la pestaña "Progress" por defecto
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -101,6 +104,8 @@ fun ProgressScreen(navController: NavController) {
                 ListItem(" ", motivationMessage)
                 Spacer(modifier = Modifier.height(16.dp))
 
+                // Barra de progreso
+                ProgressBar(progress)
             }
         }
 
@@ -152,12 +157,34 @@ fun ProgressScreen(navController: NavController) {
                 },
                 label = { androidx.compose.material3.Text("Settings") },
                 selected = selectedTab == 2,
-                onClick = { selectedTab = 2 }
+                onClick = { selectedTab = 2
+                    navController.navigate("Settings")
+                }
             )
         }
     }
 }
 
+@Composable
+fun ProgressBar(progress: Double) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
+    ) {
+        LinearProgressIndicator(
+            progress = progress.toFloat(),
+            modifier = Modifier.fillMaxWidth()
+        )
+        Text(
+            text = "Progreso: ${(progress * 100).toInt()}%",
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+    }
+}
 
 @Composable
 fun ListItem(title: String, value: String) {
@@ -174,7 +201,6 @@ fun ListItem(title: String, value: String) {
         Text(text = value)
     }
 }
-
 
 
 

@@ -135,6 +135,14 @@ fun WelcomeScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         CarouselSlider(images, modifier = Modifier.weight(1f))
+        Button(
+            onClick = { /* Manejar la acción del botón Empezar aquí */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text("Empezemos!", color = Color.White)
+        }
 
         BottomNavigation(
             modifier = Modifier
@@ -168,6 +176,7 @@ fun WelcomeScreen(navController: NavController) {
                 label = { Text("Settings") },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
+                    navController.navigate("Settings")
 
                     UserSession.logout(context)
                     UserSession.clearSession()
