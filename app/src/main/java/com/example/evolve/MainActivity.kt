@@ -144,16 +144,23 @@ fun WelcomeScreen(navController: NavController) {
             Text("Empezemos!", color = Color.White)
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         BottomNavigation(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(logoColor)
-                .padding(0.dp, 0.dp, 0.dp, 0.dp),
+                .padding(0.dp, 24.dp, 0.dp, 0.dp),
             backgroundColor = Color(0xFF5744e6)
         ) {
             BottomNavigationItem(
-                icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                label = { Text("Home") },
+                icon = {
+                    androidx.compose.material3.Icon(
+                        Icons.Default.Home,
+                        contentDescription = "Home"
+                    )
+                },
+                label = { androidx.compose.material3.Text("Home") },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -162,8 +169,13 @@ fun WelcomeScreen(navController: NavController) {
                 }
             )
             BottomNavigationItem(
-                icon = { Icon(Icons.Default.Favorite, contentDescription = "Progress") },
-                label = { Text("Progress") },
+                icon = {
+                    androidx.compose.material3.Icon(
+                        Icons.Default.Favorite,
+                        contentDescription = "Progress"
+                    )
+                },
+                label = { androidx.compose.material3.Text("Progress") },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -172,14 +184,16 @@ fun WelcomeScreen(navController: NavController) {
                 }
             )
             BottomNavigationItem(
-                icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
-                label = { Text("Settings") },
+                icon = {
+                    androidx.compose.material3.Icon(
+                        Icons.Default.Settings,
+                        contentDescription = "Settings"
+                    )
+                },
+                label = { androidx.compose.material3.Text("Settings") },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
-
-                    UserSession.logout(context)
-                    UserSession.clearSession()
                 }
             )
         }
