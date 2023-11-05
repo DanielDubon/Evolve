@@ -7,4 +7,6 @@ sealed class NavigationState(val route: String) {
     object Progress: NavigationState("Progress")
     object Profile: NavigationState("Profile")
     object Settings: NavigationState("Settings")
+    object Categories: NavigationState("Categories")
+    object Exercise: NavigationState("Exercise")
 }

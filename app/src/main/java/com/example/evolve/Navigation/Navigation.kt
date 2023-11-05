@@ -10,10 +10,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.evolve.Model.PersonApp
+import com.example.evolve.View.CategoriesScreen
+import com.example.evolve.View.ExerciseScreen
 import com.example.evolve.View.LoginScreen
 import com.example.evolve.View.ProgressScreen
 import com.example.evolve.View.RegisterScreen
 import com.example.evolve.View.SettingsScreen
+import com.example.evolve.View.getExercisesForCategory
 import com.example.evolve.WelcomeScreen
 
 
@@ -48,8 +51,18 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
             SettingsScreen(navController)
 
         }
+        composable("Categories") {
+            CategoriesScreen(navController)
+        }
+        composable("Exercises/{category}") { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category")
+            if (category != null) {
+                val exercises = getExercisesForCategory(category)
+                ExerciseScreen(navController, category, exercises)
+            }
+        }
+    }
 }
-     }
 
 
 
