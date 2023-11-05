@@ -66,7 +66,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class DarkModeActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,7 +136,10 @@ fun WelcomeScreen(navController: NavController) {
 
         CarouselSlider(images, modifier = Modifier.weight(1f))
         Button(
-            onClick = { /* Manejar la acción del botón Empezar aquí */ },
+            onClick = {
+                // Manejar la acción del botón Empezar aquí y navegar a CategoriesScreen
+                navController.navigate("Categories")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
