@@ -151,12 +151,12 @@ fun SettingsScreen(navController: NavController) {
         ) {
             BottomNavigationItem(
                 icon = {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         Icons.Default.Home,
                         contentDescription = "Home"
                     )
                 },
-                label = { androidx.compose.material3.Text("Home") },
+                label = { Text("Home") },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -166,12 +166,12 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         Icons.Default.Favorite,
                         contentDescription = "Progress"
                     )
                 },
-                label = { androidx.compose.material3.Text("Progress") },
+                label = { Text("Progress") },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -181,12 +181,12 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    androidx.compose.material3.Icon(
+                    Icon(
                         Icons.Default.Settings,
                         contentDescription = "Settings"
                     )
                 },
-                label = { androidx.compose.material3.Text("Settings") },
+                label = { Text("Settings") },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
@@ -233,6 +233,7 @@ private fun SettingDropdown(
     options: List<String>,
     onLanguageSelected: (String) -> Unit
 ) {
+    var isLanguageMenuExpanded by remember { mutableStateOf(false) }
     Surface(
         color = Color(0xFF5744e6).copy(alpha = 0.1f),
         modifier = Modifier.fillMaxWidth(),
@@ -254,7 +255,7 @@ private fun SettingDropdown(
                 modifier = Modifier.clickable(
                     onClick = {
                         // Al hacer clic, expande o colapsa el menú desplegable
-                        onLanguageSelected(selectedValue)
+                        isLanguageMenuExpanded = !isLanguageMenuExpanded
                     }
                 )
             ) {
@@ -262,7 +263,6 @@ private fun SettingDropdown(
             }
 
             // Menú desplegable para idioma
-            var isLanguageMenuExpanded by remember { mutableStateOf(false) }
             if (isLanguageMenuExpanded) {
                 DropdownMenu(
                     expanded = isLanguageMenuExpanded,
@@ -311,5 +311,3 @@ private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
         }
     }
 }
-
-
