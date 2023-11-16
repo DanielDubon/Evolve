@@ -4,10 +4,8 @@ import androidx.compose.material.Colors
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-// ColorPalettes.kt
 
-
-val LightColorPalette = Colors(
+val LightColors= Colors(
     primary = Color(0xFF6200EE),
     primaryVariant = Color(0xFF3700B3),
     secondary = Color(0xFF03DAC6),
@@ -20,10 +18,10 @@ val LightColorPalette = Colors(
     onBackground = Color(0xFF000000),
     onSurface = Color(0xFF000000),
     onError = Color(0xFFFFFFFF),
-    isLight = true // Agrega el parámetro isLight con el valor correspondiente
+    isLight = true
 )
 
-val DarkColorPalette = Colors(
+val DarkColors = Colors(
     primary = Color(0xFFBB86FC),
     primaryVariant = Color(0xFF3700B3),
     secondary = Color(0xFF03DAC6),
@@ -36,5 +34,5 @@ val DarkColorPalette = Colors(
     onBackground = Color(0xFFFFFFFF),
     onSurface = Color(0xFFFFFFFF),
     onError = Color(0xFF000000),
-    isLight = false // Agrega el parámetro isLight con el valor correspondiente
+    isLight = false
 )

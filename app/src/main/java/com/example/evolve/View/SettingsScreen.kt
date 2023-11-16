@@ -57,6 +57,8 @@ import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
 import java.util.Locale
 
+
+
 @Composable
 fun SettingsScreen(navController: NavController) {
 
@@ -207,7 +209,7 @@ fun SettingsScreen(navController: NavController) {
                         contentDescription = "Home"
                     )
                 },
-                label = { Text(HomeLabel) },
+                label = { androidx.compose.material3.Text(HomeLabel) },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -217,12 +219,12 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Favorite,
                         contentDescription = "Progress"
                     )
                 },
-                label = { Text(ProgressLabel) },
+                label = { androidx.compose.material3.Text(ProgressLabel) },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -237,7 +239,7 @@ fun SettingsScreen(navController: NavController) {
                         contentDescription = "Settings"
                     )
                 },
-                label = { Text(settingsTitle) },
+                label = { androidx.compose.material3.Text(settingsTitle) },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
