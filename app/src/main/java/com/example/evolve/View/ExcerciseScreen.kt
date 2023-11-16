@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.evolve.R
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -156,23 +158,32 @@ data class Exercise(
     val youtubeVideoId: String
 )
 
-fun getExercisesForCategory(category: String?): List<Exercise> {
+fun getExercisesForCategory(context: Context, category: String?): List<Exercise> {
+    val categoryStrength = context.resources.getString(R.string.category_strength)
+    val categoryEndurance = context.resources.getString(R.string.category_endurance)
+    val categoryFlexibility = context.resources.getString(R.string.category_flexibility)
+    if (category != null) {
+        Log.d("CATEGORY",category)
+
+    }
+    Log.d("CHECK CATEGORY FUERZA", categoryStrength.toString())
     return when (category) {
-        "Fuerza" -> {
+
+        categoryStrength.toString() -> {
             listOf(
                 Exercise(R.string.exercise_weights, "45 m", R.drawable.pesas,"RIKN90NZqMg"),
                 Exercise(R.string.exercise_crossfit, "45 m", R.drawable.crossfit, "8szBUOMuUX8")
 
             )
         }
-        "Resistencia" -> {
+        categoryEndurance.toString() -> {
             listOf(
                 Exercise(R.string.exercise_cardio, "20 m", R.drawable.cardio,"4mK5Q39jczI"),
                 Exercise(R.string.exercise_hiit, "18 m", R.drawable.hiit, "9qlik98nX4w"),
                 Exercise(R.string.exercise_calisthenics, "22 m", R.drawable.calistenia, "Bz8Vou63OUk")
             )
         }
-        "Flexibilidad" -> {
+        categoryFlexibility.toString() -> {
             listOf(
                 Exercise(R.string.exercise_yoga, "15 m", R.drawable.yoga, "M5Jcq-YaMv4"),
                 Exercise(R.string.exercise_zumba, "45 m", R.drawable.zumba, "kILnhdTbG3k"),

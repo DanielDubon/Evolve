@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -57,7 +58,7 @@ fun Navigation(app: PersonApp, modifier: Modifier = Modifier) {
         composable("Exercises/{category}") { backStackEntry ->
             val category = backStackEntry.arguments?.getString("category")
             if (category != null) {
-                val exercises = getExercisesForCategory(category)
+                val exercises = getExercisesForCategory(LocalContext.current,category)
                 ExerciseScreen(navController, category, exercises)
             }
         }
