@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Evolve</string>}
+    <string name="welcome_message">Bienvenid@, </string>
+    <string name="ready">Empezemos!</string>
+    <string name="settings_title">Configuración</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="dark_mode">Modo Oscuro</string>
+    <string name="language">Idioma</string>
+    <string name="edit_profile">Editar Perfil</string>
+
+
+    <string name="HOME">Inicio</string>
+
+
+
+    <string name="Spanish">Español</string>
+    <string name="English">Ingles</string>
+
+
+
+    <string name="about">Acerca de</string>
+    <string name="terms_and_conditions">Términos y Condiciones</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="help">Ayuda</string>
+    <string name="share_app">Compartir APP</string>
+    <string name="feedback">Comentarios</string>
+    <string name="rate_us">Calificanos!</string>
+    <string name="contact_us">Contáctanos</string>
+
+    <string name="Sign_out">Cerrar Sesión</string>
+    <string name="hi">Hola, </string>
+    <string name="your_progress">Tu Progreso </string>
+    <string name="progress">Progreso</string>
+    <string name="BMI">Tu IMC: </string>
+    <string name="BMI_category">Categoría de IMC: </string>
+    <string name="Low_weight">Bajo peso </string>
+    <string name="Normal_weight">Normal </string>
+    <string name="overweight">Sobrepeso </string>
+    <string name="Obese">Obesidad </string>
+
+    <string name="bmi_low">"¡Es importante mantener una dieta equilibrada y saludable para alcanzar un peso saludable!"</string>
+    <string name="bmi_normal">"¡Felicidades! Tu peso está en un rango saludable. ¡Sigue cuidándote!"</string>
+    <string name="bmi_overweight">"Puedes alcanzar un peso saludable con una dieta equilibrada y ejercicio regular."</string>
+    <string name="bmi_obese">"Es importante tomar medidas para mejorar tu salud. Consulta a un profesional médico."</string>
+    <string name="bmi_else">"¡Sigue trabajando en tu salud y bienestar!"</string>
+
+
+    <string name="categories_title">Categorías</string>
+    <string name="category_strength">Fuerza</string>
+    <string name="category_endurance">Resistencia</string>
+    <string name="category_flexibility">Flexibilidad</string>
+    <string name="content_description_back">Regresar</string>
+
+
+    <string name="exercise_weights">Pesas</string>
+    <string name="exercise_crossfit">Crossfit</string>
+    <string name="exercise_cardio">Cardio</string>
+    <string name="exercise_hiit">HIIT</string>
+    <string name="exercise_calisthenics">Calistenia</string>
+    <string name="exercise_yoga">Yoga</string>
+    <string name="exercise_zumba">Zumba</string>
+    <string name="exercise_boxing">Box</string>
+
+</resources>
