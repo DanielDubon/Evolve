@@ -55,12 +55,11 @@ import androidx.navigation.NavController
 import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
-import java.util.Locale
 
 @Composable
 fun SettingsScreen(navController: NavController) {
 
-
+    val context = LocalContext.current
     //Strings
     val settingsTitle = stringResource(id = R.string.settings_title)
     val notificationsLabel = stringResource(id = R.string.notifications)
@@ -202,7 +201,7 @@ fun SettingsScreen(navController: NavController) {
         ) {
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Home,
                         contentDescription = "Home"
                     )
@@ -232,7 +231,7 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Settings,
                         contentDescription = "Settings"
                     )
@@ -246,7 +245,32 @@ fun SettingsScreen(navController: NavController) {
         }
     }
 }
-
+@Composable
+private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
+    Surface(
+        color = Color(0xFF5744e6).copy(alpha = 0.1f),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable {
+                    // Agrega aquí la lógica para manejar la selección de la opción del menú
+                }
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                tint = Color(0xFF000000), // Color del icono
+                modifier = Modifier.size(iconSize) // Tamaño del icono
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(text = label, color = Color(0xFF000000))
+        }
+    }
+}
 @Composable
 private fun SettingOption(
     label: String,
@@ -303,12 +327,10 @@ private fun SettingDropdown(
             Spacer(modifier = Modifier.weight(1f))
 
             Box(
-                modifier = Modifier.clickable(
-                    onClick = {
-                        // Al hacer clic, expande o colapsa el menú desplegable
-                        isLanguageMenuExpanded = !isLanguageMenuExpanded
-                    }
-                )
+                modifier = Modifier.clickable {
+                    // Al hacer clic, expande o colapsa el menú desplegable
+                    isLanguageMenuExpanded = !isLanguageMenuExpanded
+                }
             ) {
                 Text(text = selectedValue)
             }
@@ -332,33 +354,6 @@ private fun SettingDropdown(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
-    Surface(
-        color = Color(0xFF5744e6).copy(alpha = 0.1f),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable {
-                    // Agrega aquí la lógica para manejar la selección de la opción del menú
-                }
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                tint = Color(0xFF000000), // Color del icono
-                modifier = Modifier.size(iconSize) // Tamaño del icono
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(text = label, color = Color(0xFF000000))
         }
     }
 }
