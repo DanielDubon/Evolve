@@ -1,7 +1,14 @@
 package com.example.evolve.View
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,6 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -71,19 +80,26 @@ fun ExerciseScreen(
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(exercises) { exercise ->
-                    ExerciseCard(exercise)
+                    ExerciseCard(exercise, navController, LocalContext.current)
                 }
             }
+
         }
     }
 }
 
 @Composable
-fun ExerciseCard(exercise: Exercise) {
+fun ExerciseCard(exercise: Exercise, navController: NavController, context: Context) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable {
+                val intent = Intent(context, YouTubePlayerActivity::class.java).apply {
+                    putExtra("videoId", exercise.youtubeVideoId)
+                }
+                context.startActivity(intent)
+            }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -109,36 +125,58 @@ fun ExerciseCard(exercise: Exercise) {
         }
     }
 }
+
+//YouTube
+class YouTubePlayerActivity : ComponentActivity() {
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val videoId = intent.getStringExtra("videoId")
+
+        if (videoId != null) {
+            val youtubeUrl = "https://www.youtube.com/watch?v=$videoId"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+            launcher.launch(intent)
+        } else {
+            println("ERROR")
+        }
+    }
+}
+
 data class Exercise(
     val name: String,
     val duration: String,
-    val imageResId: Int
+    val imageResId: Int,
+    val youtubeVideoId: String
 )
 
-// Función de ejemplo que devuelve ejercicios basados en la categoría
 fun getExercisesForCategory(category: String?): List<Exercise> {
     return when (category) {
         "Fuerza" -> {
             listOf(
-                Exercise("Pesas", "45 minutos", R.drawable.pesas),
-                Exercise("Crossfit", "45 minutos", R.drawable.crossfit)
-
+                Exercise("Pesas", "45 minutos", R.drawable.pesas, "RIKN90NZqMg"),
+                Exercise("Crossfit", "45 minutos", R.drawable.crossfit, "8szBUOMuUX8")
             )
         }
         "Resistencia" -> {
             listOf(
-                Exercise("Cardio", "20 minutos", R.drawable.cardio),
-                Exercise("HIIT", "18 minutos", R.drawable.hiit),
-                Exercise("Calistenia", "22 minutos", R.drawable.calistenia)
+                Exercise("Cardio", "20 minutos", R.drawable.cardio, "4mK5Q39jczI"),
+                Exercise("HIIT", "15 minutos", R.drawable.hiit, "9qlik98nX4w"),
+                Exercise("Calistenia", "30 minutos", R.drawable.calistenia, "Bz8Vou63OUk")
             )
         }
         "Flexibilidad" -> {
             listOf(
-                Exercise("Yoga", "15 minutos", R.drawable.yoga),
-                Exercise("Zumba", "45 minutos", R.drawable.zumba),
-                Exercise("Boxeo", "45 minutos", R.drawable.boxeo)
+                Exercise("Yoga", "15 minutos", R.drawable.yoga, "M5Jcq-YaMv4"),
+                Exercise("Zumba", "20 minutos", R.drawable.zumba, "kILnhdTbG3k"),
+                Exercise("Boxeo", "25 minutos", R.drawable.boxeo, "TrDYJytaCdA")
             )
         }
-        else -> emptyList() //
+        else -> emptyList()
     }
 }

@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -56,17 +58,17 @@ fun CategoriesScreen(navController: NavController) {
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             item {
-                CategoryCard("Fuerza", R.drawable.peso) {
+                CategoryCard("Fuerza", R.drawable.peso, 0.5f) {
                     navController.navigate("Exercises/Fuerza")
                 }
             }
             item {
-                CategoryCard("Resistencia", R.drawable.resistencia) {
+                CategoryCard("Resistencia", R.drawable.resistencia, 0.5f) {
                     navController.navigate("Exercises/Resistencia")
                 }
             }
             item {
-                CategoryCard("Flexibilidad", R.drawable.flexibilidad) {
+                CategoryCard("Flexibilidad", R.drawable.flexibilidad, 0.5f) {
                     navController.navigate("Exercises/Flexibilidad")
                 }
             }
@@ -76,7 +78,7 @@ fun CategoriesScreen(navController: NavController) {
 
 
 @Composable
-fun CategoryCard(category: String, imageResId: Int, onClick: () -> Unit) {
+fun CategoryCard(category: String, imageResId: Int, contentScale: Float, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(16.dp)
@@ -91,7 +93,9 @@ fun CategoryCard(category: String, imageResId: Int, onClick: () -> Unit) {
                 painter = painterResource(id = imageResId),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .height(280.dp)
             )
             Text(
                 text = category,

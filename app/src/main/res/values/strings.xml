@@ -1,3 +1,15 @@
 <resources>
+    <!-- Recursos en el idioma base (español) -->
     <string name="app_name">Evolve</string>
+    <string name="welcome_message">¡Bienvenido!</string>
+    <string name="edit_profile">Editar Perfil</string>
+
+    <!-- Recursos en inglés -->
+    <string name="app_name_en" translatable="false">My App</string>
+    <string name="welcome_message_en" translatable="false">Welcome!</string>
+    <string name="edit_profile_en" translatable="false">Edit Profile</string>
+
+    <!-- Agregar otras cadenas específicas del idioma aquí -->
+    <!-- Ejemplo: -->
+    <!-- <string name="example_string_en" translatable="false">This is an example string in English.</string> -->
 </resources>

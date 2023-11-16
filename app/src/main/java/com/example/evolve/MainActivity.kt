@@ -67,8 +67,6 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -125,7 +123,7 @@ fun WelcomeScreen(navController: NavController) {
         }
 
         Text(
-            text = "Bienvenid@, $username",
+            text = "Bienvenido, $username",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()

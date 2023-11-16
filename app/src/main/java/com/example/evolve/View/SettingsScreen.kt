@@ -42,19 +42,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
 
 @Composable
 fun SettingsScreen(navController: NavController) {
+    val context = LocalContext.current
     val logoColor = colorResource(id = R.color.LogoColor)
 
     var selectedTab by remember { mutableStateOf(2) }
@@ -113,7 +113,6 @@ fun SettingsScreen(navController: NavController) {
             languageOptions,
             onLanguageSelected = { language ->
                 selectedLanguage = language
-                // Implementa aquí la lógica para cambiar el idioma
             }
         )
 
@@ -151,12 +150,12 @@ fun SettingsScreen(navController: NavController) {
         ) {
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Home,
                         contentDescription = "Home"
                     )
                 },
-                label = { Text("Home") },
+                label = { androidx.compose.material3.Text("Home") },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -166,12 +165,12 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Favorite,
                         contentDescription = "Progress"
                     )
                 },
-                label = { Text("Progress") },
+                label = { androidx.compose.material3.Text("Progress") },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -181,12 +180,12 @@ fun SettingsScreen(navController: NavController) {
             )
             BottomNavigationItem(
                 icon = {
-                    Icon(
+                    androidx.compose.material3.Icon(
                         Icons.Default.Settings,
                         contentDescription = "Settings"
                     )
                 },
-                label = { Text("Settings") },
+                label = { androidx.compose.material3.Text("Settings") },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
@@ -195,7 +194,32 @@ fun SettingsScreen(navController: NavController) {
         }
     }
 }
-
+@Composable
+private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
+    Surface(
+        color = Color(0xFF5744e6).copy(alpha = 0.1f),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .clickable {
+                    // Agrega aquí la lógica para manejar la selección de la opción del menú
+                }
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                tint = Color(0xFF000000), // Color del icono
+                modifier = Modifier.size(iconSize) // Tamaño del icono
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(text = label, color = Color(0xFF000000))
+        }
+    }
+}
 @Composable
 private fun SettingOption(
     label: String,
@@ -252,12 +276,10 @@ private fun SettingDropdown(
             Spacer(modifier = Modifier.weight(1f))
 
             Box(
-                modifier = Modifier.clickable(
-                    onClick = {
-                        // Al hacer clic, expande o colapsa el menú desplegable
-                        isLanguageMenuExpanded = !isLanguageMenuExpanded
-                    }
-                )
+                modifier = Modifier.clickable {
+                    // Al hacer clic, expande o colapsa el menú desplegable
+                    isLanguageMenuExpanded = !isLanguageMenuExpanded
+                }
             ) {
                 Text(text = selectedValue)
             }
@@ -281,33 +303,6 @@ private fun SettingDropdown(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
-    Surface(
-        color = Color(0xFF5744e6).copy(alpha = 0.1f),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clickable {
-                    // Agrega aquí la lógica para manejar la selección de la opción del menú
-                }
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                tint = Color(0xFF000000), // Color del icono
-                modifier = Modifier.size(iconSize) // Tamaño del icono
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(text = label, color = Color(0xFF000000))
         }
     }
 }
