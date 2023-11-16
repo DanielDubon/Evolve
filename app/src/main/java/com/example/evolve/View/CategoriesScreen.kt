@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,18 +36,26 @@ import com.example.evolve.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(navController: NavController) {
+
+    val categoriesTitle = stringResource(id = R.string.categories_title)
+    val categoryStrength = stringResource(id = R.string.category_strength)
+    val categoryEndurance = stringResource(id = R.string.category_endurance)
+    val categoryFlexibility = stringResource(id = R.string.category_flexibility)
+    val contentDescriptionBack = stringResource(id = R.string.content_description_back)
+
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         TopAppBar(
-            title = { Text(text = "Categorías") },
+            title = { Text(text = categoriesTitle) },
             navigationIcon = {
                 IconButton(
                     onClick = { navController.popBackStack() }
                 ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = contentDescriptionBack
                     )
                 }
             }
@@ -56,17 +65,17 @@ fun CategoriesScreen(navController: NavController) {
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             item {
-                CategoryCard("Fuerza", R.drawable.peso) {
+                CategoryCard(categoryStrength, R.drawable.peso) {
                     navController.navigate("Exercises/Fuerza")
                 }
             }
             item {
-                CategoryCard("Resistencia", R.drawable.resistencia) {
+                CategoryCard(categoryEndurance, R.drawable.resistencia) {
                     navController.navigate("Exercises/Resistencia")
                 }
             }
             item {
-                CategoryCard("Flexibilidad", R.drawable.flexibilidad) {
+                CategoryCard(categoryFlexibility, R.drawable.flexibilidad) {
                     navController.navigate("Exercises/Flexibilidad")
                 }
             }

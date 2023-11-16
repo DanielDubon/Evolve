@@ -1,5 +1,6 @@
 package com.example.evolve.View
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +33,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,17 +47,29 @@ import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
 
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProgressScreen(navController: NavController) {
+
+    //Strings
+    val HiLabel = stringResource(id = R.string.hi)
+    val YourProgressLabel = stringResource(id = R.string.your_progress)
+    val BMILabel = stringResource(id = R.string.BMI)
+    val BMICategoryLabel = stringResource(id = R.string.BMI_category)
+    val ProgressLabel = stringResource(id = R.string.progress)
+    val HomeLabel = stringResource(id = R.string.HOME)
+    val settingsTitle = stringResource(id = R.string.settings_title)
+
+
     val logoColor = colorResource(id = R.color.LogoColor)
     val username = UserSession.username ?: "DefaultUsername"
     val peso = UserSession.weight ?: 0
     val altura = UserSession.height ?: 0
 
     val bmi = calculateBMI(peso, altura / 100.0) // Convertir altura a metros
-    val bmiCategory = getBMICategory(bmi)
-    val motivationMessage = getMotivationMessage(bmiCategory)
+    val bmiCategory = getBMICategory(LocalContext.current,bmi)
+    val motivationMessage = getMotivationMessage(LocalContext.current ,bmiCategory)
 
     val bmiIdeal = 22.0 // Define el IMC ideal
 
@@ -72,7 +87,7 @@ fun ProgressScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             Text(
-                text = "Hola, $username",
+                text = "$HiLabel $username",
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 modifier = Modifier.padding(16.dp)
@@ -80,7 +95,7 @@ fun ProgressScreen(navController: NavController) {
         }
 
         Text(
-            text = "Tu Progreso",
+            text = YourProgressLabel,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             color = logoColor,
@@ -99,8 +114,8 @@ fun ProgressScreen(navController: NavController) {
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                ListItem("Tu IMC:", "$bmi")
-                ListItem("Categoría de IMC:", bmiCategory)
+                ListItem(BMILabel, "$bmi")
+                ListItem(BMICategoryLabel, bmiCategory)
                 ListItem(" ", motivationMessage)
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -125,7 +140,7 @@ fun ProgressScreen(navController: NavController) {
                         contentDescription = "Home"
                     )
                 },
-                label = { androidx.compose.material3.Text("Home") },
+                label = { androidx.compose.material3.Text(HomeLabel) },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -140,7 +155,7 @@ fun ProgressScreen(navController: NavController) {
                         contentDescription = "Progress"
                     )
                 },
-                label = { androidx.compose.material3.Text("Progress") },
+                label = { androidx.compose.material3.Text(ProgressLabel) },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -155,7 +170,7 @@ fun ProgressScreen(navController: NavController) {
                         contentDescription = "Settings"
                     )
                 },
-                label = { androidx.compose.material3.Text("Settings") },
+                label = { androidx.compose.material3.Text(settingsTitle) },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
@@ -167,6 +182,7 @@ fun ProgressScreen(navController: NavController) {
 
 @Composable
 fun ProgressBar(progress: Double) {
+    val ProgressLabel = stringResource(id = R.string.progress)
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -177,7 +193,7 @@ fun ProgressBar(progress: Double) {
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = "Progreso: ${(progress * 100).toInt()}%",
+            text = "$ProgressLabel: ${(progress * 100).toInt()}%",
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             color = Color.Black,
@@ -210,23 +226,32 @@ fun calculateBMI(weight: Int, height: Double): Double {
 }
 
 // Función para obtener la categoría de IMC
-fun getBMICategory(bmi: Double): String {
+fun getBMICategory(context: Context, bmi: Double): String {
+    val resources = context.resources
+    val LowWeightLabel = resources.getString(R.string.Low_weight)
+    val NormalWeightLabel = resources.getString(R.string.Normal_weight)
+    val OverweightLabel = resources.getString(R.string.overweight)
+    val ObeseLabel = resources.getString(R.string.Obese)
+
     return when {
-        bmi < 18.5 -> "Bajo peso"
-        bmi < 25.0 -> "Normal"
-        bmi < 30.0 -> "Sobrepeso"
-        else -> "Obesidad"
+
+        bmi < 18.5 -> LowWeightLabel
+        bmi < 25.0 -> NormalWeightLabel
+        bmi < 30.0 -> OverweightLabel
+        else -> ObeseLabel
     }
 }
 
 // Función para obtener un mensaje de motivación basado en la categoría de IMC
-fun getMotivationMessage(bmiCategory: String): String {
+fun getMotivationMessage(context: Context,bmiCategory: String): String {
+
+    val resources = context.resources
     return when (bmiCategory) {
-        "Bajo peso" -> "¡Es importante mantener una dieta equilibrada y saludable para alcanzar un peso saludable!"
-        "Normal" -> "¡Felicidades! Tu peso está en un rango saludable. ¡Sigue cuidándote!"
-        "Sobrepeso" -> "Puedes alcanzar un peso saludable con una dieta equilibrada y ejercicio regular."
-        "Obesidad" -> "Es importante tomar medidas para mejorar tu salud. Consulta a un profesional médico."
-        else -> "¡Sigue trabajando en tu salud y bienestar!"
+        "Bajo peso" -> resources.getString(R.string.bmi_low)
+        "Normal" -> resources.getString(R.string.bmi_normal)
+        "Sobrepeso" -> resources.getString(R.string.bmi_overweight)
+        "Obesidad" -> resources.getString(R.string.bmi_obese)
+        else -> resources.getString(R.string.bmi_else)
     }
 }
 

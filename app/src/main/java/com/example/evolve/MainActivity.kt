@@ -50,6 +50,7 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -94,6 +95,15 @@ class MainActivity : ComponentActivity() {
 fun WelcomeScreen(navController: NavController) {
 
     val context = LocalContext.current
+    val ProgressLabel = stringResource(id = R.string.progress)
+    val HomeLabel = stringResource(id = R.string.HOME)
+    val settingsTitle = stringResource(id = R.string.settings_title)
+
+    val WelcomeLabel =  stringResource(id = R.string.welcome_message)
+
+
+    val ReadyLabel =  stringResource(id = R.string.ready)
+
 
     val username = UserSession.username ?: "DefaultUsername"
     val logoColor = colorResource(id = R.color.LogoColor)
@@ -125,7 +135,7 @@ fun WelcomeScreen(navController: NavController) {
         }
 
         Text(
-            text = "Bienvenid@, $username",
+            text = "$WelcomeLabel $username",
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()
@@ -144,7 +154,7 @@ fun WelcomeScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            Text("Empezemos!", color = Color.White)
+            Text(ReadyLabel, color = Color.White)
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -163,7 +173,7 @@ fun WelcomeScreen(navController: NavController) {
                         contentDescription = "Home"
                     )
                 },
-                label = { androidx.compose.material3.Text("Home") },
+                label = { androidx.compose.material3.Text(HomeLabel) },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -178,7 +188,7 @@ fun WelcomeScreen(navController: NavController) {
                         contentDescription = "Progress"
                     )
                 },
-                label = { androidx.compose.material3.Text("Progress") },
+                label = { androidx.compose.material3.Text(ProgressLabel) },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -193,7 +203,7 @@ fun WelcomeScreen(navController: NavController) {
                         contentDescription = "Settings"
                     )
                 },
-                label = { androidx.compose.material3.Text("Settings") },
+                label = { androidx.compose.material3.Text(settingsTitle) },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")

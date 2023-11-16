@@ -20,11 +20,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -96,13 +96,14 @@ fun ExerciseCard(exercise: Exercise) {
                     .fillMaxWidth()
                     .height(200.dp)
             )
+            val exerciseName = stringResource(id = exercise.name)
             Text(
-                text = exercise.name,
+                text = exerciseName,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp
             )
             Text(
-                text = "Duración: ${exercise.duration}",
+                text = exercise.duration,
                 fontSize = 14.sp,
                 color = Color.Gray
             )
@@ -110,7 +111,7 @@ fun ExerciseCard(exercise: Exercise) {
     }
 }
 data class Exercise(
-    val name: String,
+    val name: Int,
     val duration: String,
     val imageResId: Int
 )
@@ -120,23 +121,23 @@ fun getExercisesForCategory(category: String?): List<Exercise> {
     return when (category) {
         "Fuerza" -> {
             listOf(
-                Exercise("Pesas", "45 minutos", R.drawable.pesas),
-                Exercise("Crossfit", "45 minutos", R.drawable.crossfit)
+                Exercise(R.string.exercise_weights, "45 m", R.drawable.pesas),
+                Exercise(R.string.exercise_crossfit, "45 m", R.drawable.crossfit)
 
             )
         }
         "Resistencia" -> {
             listOf(
-                Exercise("Cardio", "20 minutos", R.drawable.cardio),
-                Exercise("HIIT", "18 minutos", R.drawable.hiit),
-                Exercise("Calistenia", "22 minutos", R.drawable.calistenia)
+                Exercise(R.string.exercise_cardio, "20 m", R.drawable.cardio),
+                Exercise(R.string.exercise_hiit, "18 m", R.drawable.hiit),
+                Exercise(R.string.exercise_calisthenics, "22 m", R.drawable.calistenia)
             )
         }
         "Flexibilidad" -> {
             listOf(
-                Exercise("Yoga", "15 minutos", R.drawable.yoga),
-                Exercise("Zumba", "45 minutos", R.drawable.zumba),
-                Exercise("Boxeo", "45 minutos", R.drawable.boxeo)
+                Exercise(R.string.exercise_yoga, "15 m", R.drawable.yoga),
+                Exercise(R.string.exercise_zumba, "45 m", R.drawable.zumba),
+                Exercise(R.string.exercise_boxing, "45 m", R.drawable.boxeo)
             )
         }
         else -> emptyList() //

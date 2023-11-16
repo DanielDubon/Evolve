@@ -1,3 +1,65 @@
 <resources>
-    <string name="app_name">Evolve</string>
+    <string name="app_name">Evolve</string>}
+    <string name="welcome_message">Welcome, </string>
+    <string name="ready">Lets Begin!</string>
+    <string name="settings_title">Settings</string>
+    <string name="notifications">Notifications</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language</string>
+    <string name="edit_profile">Edit Profile</string>
+
+
+    <string name="HOME">Home</string>
+
+
+
+    <string name="Spanish">Spanish</string>
+    <string name="English">English</string>
+
+    <string name="about">About</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="help">Help</string>
+    <string name="share_app">Share App</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_us">Rate Us!</string>
+    <string name="contact_us">Contact Us</string>
+
+    <string name="Sign_out">Sign Out</string>
+
+    <string name="hi">Hi, </string>
+    <string name="your_progress">Your Progress </string>
+    <string name="progress">Progress</string>
+    <string name="BMI">Your BMI: </string>
+    <string name="BMI_category">BMI Category: </string>
+    <string name="Low_weight">Low weight</string>
+    <string name="Normal_weight">Normal</string>
+    <string name="overweight">Overweight</string>
+    <string name="Obese">Obese</string>
+
+    <string name="bmi_low">"It's important to maintain a healthy and balanced diet to achieve a healthy weight!"</string>
+    <string name="bmi_normal">"Congratulations! Your weight is within a healthy range. Keep it up!"</string>
+    <string name="bmi_overweight">"You can reach a healthy weight with a balanced diet and regular exercise."</string>
+    <string name="bmi_obese">"It's important to take steps to improve your health. Consult a medical professional."</string>
+    <string name="bmi_else">"Keep working on your health and well-being!"</string>
+
+
+    <string name="categories_title">Categories</string>
+    <string name="category_strength">Strength</string>
+    <string name="category_endurance">Endurance</string>
+    <string name="category_flexibility">Flexibility</string>
+    <string name="content_description_back">Back</string>
+
+
+
+
+    <string name="exercise_weights">Weights</string>
+    <string name="exercise_crossfit">Crossfit</string>
+    <string name="exercise_cardio">Cardio</string>
+    <string name="exercise_hiit">HIIT</string>
+    <string name="exercise_calisthenics">Calisthenics</string>
+    <string name="exercise_yoga">Yoga</string>
+    <string name="exercise_zumba">Zumba</string>
+    <string name="exercise_boxing">Boxing</string>
+
 </resources>

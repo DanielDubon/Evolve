@@ -1,5 +1,6 @@
 package com.example.evolve.View
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -45,6 +46,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -52,20 +55,53 @@ import androidx.navigation.NavController
 import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
+import java.util.Locale
 
 @Composable
 fun SettingsScreen(navController: NavController) {
+
+
+    //Strings
+    val settingsTitle = stringResource(id = R.string.settings_title)
+    val notificationsLabel = stringResource(id = R.string.notifications)
+    val darkModeLabel = stringResource(id = R.string.dark_mode)
+    val languageLabel = stringResource(id = R.string.language)
+    val SpanishLabel = stringResource(id = R.string.Spanish)
+    val EnglishLabel = stringResource(id = R.string.English)
+    val EditProfileLabel = stringResource(id = R.string.edit_profile)
+    val AboutLabel = stringResource(id = R.string.about)
+    val TermsLabel = stringResource(id = R.string.terms_and_conditions)
+    val PrivacyLabel = stringResource(id = R.string.privacy_policy)
+    val HelpLabel = stringResource(id = R.string.help)
+    val ShareLabel = stringResource(id = R.string.share_app)
+    val FeedBaackLabel = stringResource(id = R.string.feedback)
+    val RateLabel = stringResource(id = R.string.rate_us)
+    val ContactUsLabel = stringResource(id = R.string.contact_us)
+    val SignOutLabel = stringResource(id = R.string.Sign_out)
+    val ProgressLabel = stringResource(id = R.string.progress)
+    val HomeLabel = stringResource(id = R.string.HOME)
+
     val logoColor = colorResource(id = R.color.LogoColor)
 
     var selectedTab by remember { mutableStateOf(2) }
 
     // Variables para controlar las opciones de configuración
     var isLanguageMenuExpanded by remember { mutableStateOf(false) }
-    var selectedLanguage by remember { mutableStateOf("Español") }
-    val languageOptions = listOf("Español", "Inglés")
+    var selectedLanguage by remember { mutableStateOf("...") }
+    val languageOptions = listOf(SpanishLabel, EnglishLabel)
 
     var isNotificationsEnabled by remember { mutableStateOf(true) }
     var isDarkModeEnabled by remember { mutableStateOf(false) }
+
+
+    fun setLocale(activity: Activity, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resources = activity.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -77,7 +113,7 @@ fun SettingsScreen(navController: NavController) {
                 .padding(8.dp)
         ) {
             Text(
-                text = "Configuración",
+                text = settingsTitle,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
                 modifier = Modifier.padding(16.dp)
@@ -88,7 +124,7 @@ fun SettingsScreen(navController: NavController) {
 
         // Notificaciones
         SettingOption(
-            "Notificaciones",
+            notificationsLabel,
             isNotificationsEnabled,
             onToggle = { isChecked ->
                 isNotificationsEnabled = isChecked
@@ -98,7 +134,7 @@ fun SettingsScreen(navController: NavController) {
 
         // Modo Oscuro
         SettingOption(
-            "Modo Oscuro",
+            darkModeLabel,
             isDarkModeEnabled,
             onToggle = { isChecked ->
                 isDarkModeEnabled = isChecked
@@ -106,38 +142,53 @@ fun SettingsScreen(navController: NavController) {
             }
         )
 
-        // Selección de Idioma
+        val context = LocalContext.current
+
         SettingDropdown(
-            "Idioma",
+            languageLabel,
             selectedLanguage,
             languageOptions,
             onLanguageSelected = { language ->
                 selectedLanguage = language
-                // Implementa aquí la lógica para cambiar el idioma
+                if (language == SpanishLabel){
+
+                    (context as? Activity)?.let { activity ->
+                        setLocale(activity, "es")
+                        activity.recreate()
+                    }
+                }else{
+                    (context as? Activity)?.let { activity ->
+                        setLocale(activity, "en")
+                        activity.recreate()
+                    }
+                }
             }
         )
 
         // Opciones adicionales
-        SettingItem("Editar Perfil", Icons.Default.AccountCircle, 36.dp)
-        SettingItem("Acerca de", Icons.Default.Info, 36.dp)
-        SettingItem("Términos y Condiciones", Icons.Default.Create, 36.dp)
-        SettingItem("Política de Privacidad", Icons.Default.Lock, 36.dp)
-        SettingItem("Ayuda", Icons.Default.Search, 36.dp)
-        SettingItem("Compartir APP", Icons.Default.Share, 36.dp)
-        SettingItem("Comentarios", Icons.Default.Email, 36.dp)
-        SettingItem("Calificanos!", Icons.Default.ThumbUp, 36.dp)
-        SettingItem("Contáctanos", Icons.Default.Phone, 36.dp)
+        SettingItem(EditProfileLabel, Icons.Default.AccountCircle, 36.dp)
+        SettingItem(AboutLabel, Icons.Default.Info, 36.dp)
+        SettingItem(TermsLabel, Icons.Default.Create, 36.dp)
+        SettingItem(PrivacyLabel, Icons.Default.Lock, 36.dp)
+        SettingItem(HelpLabel, Icons.Default.Search, 36.dp)
+        SettingItem(ShareLabel, Icons.Default.Share, 36.dp)
+        SettingItem(FeedBaackLabel, Icons.Default.Email, 36.dp)
+        SettingItem(RateLabel, Icons.Default.ThumbUp, 36.dp)
+        SettingItem(ContactUsLabel, Icons.Default.Phone, 36.dp)
 
         // Botón de Cerrar Sesión
         Button(
             onClick = {
-                // Agregar aquí la lógica para cerrar la sesión
+              UserSession.logout(context)
+                navController.navigate("Login")
+
+
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Text(text = "Cerrar Sesión", color = Color.White)
+            Text(text = SignOutLabel, color = Color.White)
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -156,7 +207,7 @@ fun SettingsScreen(navController: NavController) {
                         contentDescription = "Home"
                     )
                 },
-                label = { Text("Home") },
+                label = { Text(HomeLabel) },
                 selected = selectedTab == 0,
                 onClick = {
                     selectedTab = 0
@@ -171,7 +222,7 @@ fun SettingsScreen(navController: NavController) {
                         contentDescription = "Progress"
                     )
                 },
-                label = { Text("Progress") },
+                label = { Text(ProgressLabel) },
                 selected = selectedTab == 1,
                 onClick = {
                     selectedTab = 1
@@ -186,7 +237,7 @@ fun SettingsScreen(navController: NavController) {
                         contentDescription = "Settings"
                     )
                 },
-                label = { Text("Settings") },
+                label = { Text(settingsTitle) },
                 selected = selectedTab == 2,
                 onClick = { selectedTab = 2
                     navController.navigate("Settings")
