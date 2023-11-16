@@ -67,17 +67,17 @@ fun CategoriesScreen(navController: NavController) {
             contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             item {
-                CategoryCard(categoryStrength, R.drawable.peso) {
+                CategoryCard(categoryStrength, R.drawable.peso,1f) {
                     navController.navigate("Exercises/Fuerza")
                 }
             }
             item {
-                CategoryCard(categoryEndurance, R.drawable.resistencia) {
+                CategoryCard(categoryEndurance, R.drawable.resistencia,1f) {
                     navController.navigate("Exercises/Resistencia")
                 }
             }
             item {
-                CategoryCard(categoryFlexibility, R.drawable.flexibilidad) {
+                CategoryCard(categoryFlexibility, R.drawable.flexibilidad,1f) {
                     navController.navigate("Exercises/Flexibilidad")
                 }
             }

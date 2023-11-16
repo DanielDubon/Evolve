@@ -55,6 +55,7 @@ import androidx.navigation.NavController
 import com.example.evolve.Model.UserSession
 import com.example.evolve.Navigation.NavigationState
 import com.example.evolve.R
+import java.util.Locale
 
 @Composable
 fun SettingsScreen(navController: NavController) {
