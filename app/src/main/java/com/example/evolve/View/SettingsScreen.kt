@@ -258,7 +258,7 @@ private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clickable {
-                    // Agrega aquí la lógica para manejar la selección de la opción del menú
+
                 }
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -266,8 +266,8 @@ private fun SettingItem(label: String, icon: ImageVector, iconSize: Dp) {
             Icon(
                 imageVector = icon,
                 contentDescription = label,
-                tint = Color(0xFF000000), // Color del icono
-                modifier = Modifier.size(iconSize) // Tamaño del icono
+                tint = Color(0xFF000000),
+                modifier = Modifier.size(iconSize)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(text = label, color = Color(0xFF000000))
@@ -331,14 +331,13 @@ private fun SettingDropdown(
 
             Box(
                 modifier = Modifier.clickable {
-                    // Al hacer clic, expande o colapsa el menú desplegable
                     isLanguageMenuExpanded = !isLanguageMenuExpanded
                 }
             ) {
                 Text(text = selectedValue)
             }
 
-            // Menú desplegable para idioma
+            // Menú desplegable
             if (isLanguageMenuExpanded) {
                 DropdownMenu(
                     expanded = isLanguageMenuExpanded,
@@ -350,7 +349,6 @@ private fun SettingDropdown(
                         DropdownMenuItem(onClick = {
                             onLanguageSelected(option)
                             isLanguageMenuExpanded = false
-                            // Implementa aquí la lógica para cambiar el idioma
                         }) {
                             Text(text = option)
                         }
